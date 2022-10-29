@@ -1,0 +1,210 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <conio.h>
+
+int flag,chen,i,j,n,choose, status, temp;
+char ID;
+
+typedef struct 
+{
+	char HoVaTen[30];
+	double PT;
+	double AS;
+	double WS;
+	double PE;
+	double FE;
+	double RS;
+}SinhVien;
+
+void Gioithieu()
+{
+	printf("*********************************************************\n");
+	printf("*\t Date \t\t:\t 30/10/2022 \t\t*\n"); 
+	printf("*\t Student Group \t:\t Group 5 \t\t*\n");
+	printf("*\t Class \t\t:\t IA1707 \t\t*\n");
+}
+
+void Menu()
+{
+	printf("*********************************************************\n");
+	printf("*\t\t   QUAN LY SINH VIEN \t\t\t*\n");
+	printf("*\t Chon mot trong nhung thao tac duoi day\t\t*\n");
+	printf("*\t\t [1]. Xem danh sach \t\t\t*\n");
+	printf("*\t\t [2]. Nhap danh sach \t\t\t*\n");
+	printf("*\t\t [3]. Tim kiem \t\t\t\t*\n");
+	printf("*\t\t [4]. Thoat \t\t\t\t*\n");
+	printf("*********************************************************\n");
+	fflush(stdin);
+}
+void nhapsv(int *n, SinhVien sv[100])
+{
+    printf("Nhap so sinh vien: ");
+    scanf("%d",n);
+    for(i=0;i<*n;i++)
+{
+	printf("Nhap thong tin sinh vien: %d\n",i+1);
+	HoVaTen:
+	printf("Nhap ho ten: ");fflush(stdin);
+	gets(sv[i].HoVaTen);
+	Diem:
+	printf("PT: ");
+	scanf("%lf", &sv[i].PT);
+	printf("AS: ");
+	scanf("%lf", &sv[i].AS);
+	printf("WS: ");
+	scanf("%lf", &sv[i].WS);
+	printf("PE: ");
+	scanf("%lf", &sv[i].PE);
+	printf("FE: ");
+	scanf("%lf", &sv[i].FE);
+	if(sv[i].PT>10 || sv[i].PT<0 || sv[i].AS>10 || sv[i].AS<0 || sv[i].WS>10 || sv[i].WS<0 || sv[i].PE>10 || sv[i].PE<0 || sv[i].FE>10 || sv[i].FE<0)
+	{
+		printf("Nhap diem sai! Vui long nhap lai:\n");
+		goto Diem;
+	}else ;
+	if(strcmp(sv[i].HoVaTen,sv[i-1].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-2].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-3].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-4].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-5].HoVaTen)==0 
+	|| strcmp(sv[i].HoVaTen,sv[i-6].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-7].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-8].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-9].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-10].HoVaTen)==0
+	|| strcmp(sv[i].HoVaTen,sv[i-11].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-12].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-13].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-14].HoVaTen)==0 || strcmp(sv[i].HoVaTen,sv[i-15].HoVaTen)==0)
+	{
+		printf("Ma SV da xuat hien! Vui long nhap lai!");
+		goto HoVaTen;
+	}
+}
+}
+
+void ghiFile(SinhVien* ds, int n) {
+	FILE* fOut = fopen("SV2022.dat", "a");
+	int i;
+	for(i = 0; i<n; i++) {
+		SinhVien sv = ds[i];
+		fprintf(fOut, "%-15s %-12s %-12s %-12s %-12s %-12s %-12s \n", 
+		"Ho va Ten", 
+		"Diem PT", "Diem AS", "Diem WS", "Diem PE","Diem FE","Diem RS");
+		fprintf(fOut, "%-10s %-15s %-12s %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf\n", 
+		sv.HoVaTen, sv.PT, sv.AS, sv.WS, sv.PE, sv.FE, 
+		(sv.PT*0.1+sv.AS*0.1+sv.WS*0.1+sv.PE*0.4+sv.FE*0.3));
+	}
+	fclose(fOut);
+}
+
+void xuatsv(int n,SinhVien sv[100])
+{
+    printf("\nDANH SACH SINH VIEN\n");
+    printf("-----------------------------------------------------"
+		"----------------------------------------------------------------\n");
+	printf("%-15s %-12s %-12s %-12s %-12s %-12s %-12s \n", 
+		"Ho va Ten", "Diem PT", "Diem AS", "Diem WS", "Diem PE","Diem FE","Diem RS");
+	printf("-----------------------------------------------------"
+		"----------------------------------------------------------------\n");
+    for(i=0;i<n;i++)
+    {
+        printf("%-15s %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf\n", 
+		sv[i].HoVaTen, sv[i].PT, sv[i].AS, sv[i].WS, sv[i].PE, sv[i].FE, 
+	(sv[i].PT*0.1+sv[i].AS*0.1+sv[i].WS*0.1+sv[i].PE*0.4+sv[i].FE*0.3));
+	printf("-----------------------------------------------------"
+		"----------------------------------------------------------------\n");
+    }
+}
+
+void timsv(int n,SinhVien sv[100])
+{
+    int i=0;
+    printf("\nTIM KIEM SINH VIEN");
+    char HoVaTen[50];
+    printf("\nNhap ten: ");
+    fflush(stdin);
+    gets(HoVaTen);
+    for(i=0;i<n;i++){
+        if(strcmp(sv[i].HoVaTen,HoVaTen)==0){
+        printf("\nDANH SACH SINH VIEN TIM THAY\n");
+        printf("-----------------------------------------------------"
+		"----------------------------------------------------------------\n");
+		printf("%-15s %-12s %-12s %-12s %-12s %-12s %-12s \n", 
+		"Ho va Ten",
+		"Diem PT", "Diem AS", "Diem WS", "Diem PE","Diem FE","Diem RS");
+        printf("%-15s %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf\n", 
+			sv[i].HoVaTen, sv[i].PT, sv[i].AS, sv[i].WS, sv[i].PE, sv[i].FE, 
+		(sv[i].PT*0.1+sv[i].AS*0.1+sv[i].WS*0.1+sv[i].PE*0.4+sv[i].FE*0.3));
+		printf("-----------------------------------------------------"
+		"----------------------------------------------------------------\n");
+            break; 
+        }
+    }
+    if(i==n){
+        printf("Khong tim thay! Vui long tim lai");
+    }
+    FILE* fO = fopen("ouput.txt", "w");
+			fprintf(fO,"\nDANH SACH SINH VIEN\n");
+    		fprintf(fO,"-----------------------------------------------------"
+			"----------------------------------------------------------------\n");
+			fprintf(fO,"%-15s %-12s %-12s %-12s %-12s %-12s %-12s \n", 
+			"Ho va Ten", "Diem PT", "Diem AS", "Diem WS", "Diem PE","Diem FE","Diem RS");
+			fprintf(fO,"-----------------------------------------------------"
+			"----------------------------------------------------------------\n");
+    		for(i=0;i<n;i++)
+    		{
+    		if(strcmp(sv[i].HoVaTen,HoVaTen)==0){
+    		fprintf(fO,"%-15s %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf\n", 
+			sv[i].HoVaTen, sv[i].PT, sv[i].AS, sv[i].WS, sv[i].PE, sv[i].FE, 
+			(sv[i].PT*0.1+sv[i].AS*0.1+sv[i].WS*0.1+sv[i].PE*0.4+sv[i].FE*0.3));
+			fprintf(fO,"-----------------------------------------------------"
+			"----------------------------------------------------------------\n");
+    		}
+    		}
+			fclose(fO);
+}
+
+int main()
+{
+    int choose;
+    SinhVien sv[100];
+    char ID[10];
+    SinhVien ds[100];
+    SinhVien x[100];
+    int n,soLuong;
+    Gioithieu();Menu();
+
+    do
+	{
+		printf("\nNhap vao mot so bat ki (1-4): ");
+		status=scanf("%d",&choose);
+		while(status!=1){
+			while((temp=getchar()) != EOF && temp != '\n');
+			printf("Nhap sai.....Vui long nhap lai so(1-4): ");
+			status = scanf("%d", &choose);
+		}
+	switch(choose)
+	{
+		case 1:
+			xuatsv(n,sv);
+			FILE* fOut = fopen("SV2022.dat", "w");
+			int i;
+			fprintf(fOut,"\nDANH SACH SINH VIEN\n");
+    		fprintf(fOut,"-----------------------------------------------------"
+			"----------------------------------------------------------------\n");
+			fprintf(fOut,"%-15s %-12s %-12s %-12s %-12s %-12s %-12s \n", 
+			"Ho va Ten", "Diem PT", "Diem AS", "Diem WS", "Diem PE","Diem FE","Diem RS");
+			fprintf(fOut,"-----------------------------------------------------"
+			"----------------------------------------------------------------\n");
+    		for(i=0;i<n;i++)
+    		{
+    		fprintf(fOut,"%-15s %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf %-12.2lf\n", 
+			sv[i].HoVaTen, sv[i].PT, sv[i].AS, sv[i].WS, sv[i].PE, sv[i].FE, 
+			(sv[i].PT*0.1+sv[i].AS*0.1+sv[i].WS*0.1+sv[i].PE*0.4+sv[i].FE*0.3));
+			fprintf(fOut,"-----------------------------------------------------"
+			"----------------------------------------------------------------\n");
+    		}
+			fclose(fOut);
+			break;
+			
+		case 2:
+			nhapsv(&n,sv);
+			break;
+		case 3:
+			timsv(n,sv);
+			break;			
+	}
+	}while (choose!=4);
+	printf("Ket thuc chuong trinh quan ly sinh vien!");
+}
