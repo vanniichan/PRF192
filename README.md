@@ -6,7 +6,7 @@ TRẦN CÔNG TOÀN,
 LÊ DUY ĐẠI,
 LÊ ĐỨC VĂN(Leader)
 # Work report:
-\nProgram 1: Vũ Đức Trung
+Program 1: Vũ Đức Trung
 Program 2: Lê Đức Văn
 Program 3: Lê Duy Đại + Vũ Đức Trung
 Program 4: Trần Công Toàn
