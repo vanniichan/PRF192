@@ -37,7 +37,8 @@ int main(){
 		scanf("%d",&k);
 		fprintf(fi,"%3d\n",k);
 	}
-	fprintf(fo,"Ket qua: %lld\n",tohop(n,k));
+	fprintf(fo,"To hop chap %d cua %d la: %lld\n",k,n,tohop(n,k));
+	printf("To hop chap %d cua %d la: %lld",k,n,tohop(n,k));
 	fclose(fi);
 	fclose(fo);
 	return 0;
